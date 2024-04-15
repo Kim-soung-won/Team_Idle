@@ -1,26 +1,26 @@
 body {
-    font-family: 'Open Sans', sans-serif;
-  }
-  .sale-banner {
-    background-image: url('https://source.unsplash.com/featured/?fashion,sale');
-    background-size: cover;
-    background-position: center;
-  }
-  .product-image {
-    background-color: #e2e8f0;
-  }
-  .navigation-dot {
-    height: 8px;
-    width: 8px;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: inline-block;
-    margin: 0 5px;
-  }
-  .navigation-dot.active {
-    background-color: #71717a;
-  }
-  .mypage-dropdown {
+  font-family: 'Open Sans', sans-serif;
+}
+.sale-banner {
+  background-image: url('https://source.unsplash.com/featured/?fashion,sale');
+  background-size: cover;
+  background-position: center;
+}
+.product-image {
+  background-color: #e2e8f0;
+}
+.navigation-dot {
+  height: 8px;
+  width: 8px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 0 5px;
+}
+.navigation-dot.active {
+  background-color: #71717a;
+}
+.mypage-dropdown {
   position: relative;
   display: inline-block;
 }
