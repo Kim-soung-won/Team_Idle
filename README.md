@@ -20,16 +20,54 @@
     <td align="center"><a href="https://github.com/dl11911"><b>승훈</b></a></td>
     <td align="center"><a href="https://github.com/Kim-soung-won"><b>승원</b></a></td>
   </tr>
-
 </table>
 
-## 기획 주제 선정 (20240215~202403)
+## 프로젝트 담당 업무
 
+**팀장** 
+* <a href="https://rlatmddnjs0103.tistory.com/218">데이터베이스 테이블 설계, UML 작성</a>
+* <a href="https://rlatmddnjs0103.tistory.com/134">팀원 데이터 베이스 기초 교육</a>
+* <a href="https://rlatmddnjs0103.tistory.com/217">API 통신 설계 및 원리 기초 교육</a>
+* 개발 업무 분담
+* 기술 스택 선택
+* 팀원 코드 리뷰
 
-![03_우물우물](https://github.com/Kim-soung-won/Team_Idle/assets/105148570/80df373f-6b59-4be6-b95e-24b2f5f0e786)
+**SpringBoot 메인 기능 구현**
+* 관리자 페이지
+  * 상품 등록 및 수정 기능
+  * 상품/브랜드/주문/문의 검색/정렬 조회 기능
+  * 관리자 권한 관리
+  * 상품 이미지 등록 및 상품 대표 이미지 선택 기능
+  * 고객 문의 응답 Email 전송 기능
+
+    
+* 사용자 페이지
+  * 좋아요, 장바구니, 결제 시스템, OAuth 및 세션 인증 로그인 기능
+  * 회원가입 유효성 검사를 위한 Email 유효성 검사 기능
+  * 댓글 및 댓글 이미지 입력 및 관리 기능
+  * 개인 결제 내역 열람 및 문의 기능
+ 
+**Django 서브 기능 구현**
+* 데이터 분석 및 유저 Log 분석을 통한 추천 상품 목록 출력
+  * sklearn, pandas를 활용한 데이터 학습 및 cosine 유사도를 통한 물품 추천
+* Dummy 데이터 셋 구성
+  * Django Command 명령을 바탕으로한 상품, 결제 기록 등 개발용 데이터 셋 구축
+ 
+**배포 및 유지보수**
+* NaverCloudServer, VPC, Subnet 구성
+* Docker - Jenkins, ssh 서버 이미지 구성 및 관리
+* Jenkins - Github 연동 및 빌드 관리
+* ObjectStorage - 이미지, 영상 파일 등 정적 Resource 관리
+
+**개발 외 담당 업무**
+* PPT 제작 및 발표
+* JQuery를 통한 HTML 코드 재사용성 증진
+* 협업 툴 Notion을 통한 산출물 관리
 
 
  
+## 기획 주제 선정 (20240215~202403)
+
 **프로젝트 주제**: 유저 개인의 성향을 파악해 추천을 해주는 의류 쇼핑몰, 쇼핑몰 관리자 웹 페이지
 
 **팀명**: Idle
