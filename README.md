@@ -40,8 +40,8 @@
 **SpringBoot 메인 기능 구현**
 * 관리자 페이지
   * 상품 등록 및 수정 기능
-  * 상품/브랜드/주문/문의 검색/정렬 조회 기능
-  * <a href="https://github.com/tldraw/make-real">페이지 UI 구현</a>
+  * <a href="https://rlatmddnjs0103.tistory.com/214">상품/브랜드/주문/문의 검색/정렬 조회 기능</a>
+  * 페이지 UI 구현 <a href="https://github.com/tldraw/make-real">Open Source AI 활용</a>
   * 관리자 권한 관리
   * 상품 이미지 등록 및 상품 대표 이미지 선택 기능
   * 고객 문의 응답 Email 전송 기능
