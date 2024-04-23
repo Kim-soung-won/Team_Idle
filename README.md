@@ -68,7 +68,7 @@
 **개발 외 담당 업무**
 * PPT 제작 및 발표
 * JQuery를 통한 HTML 코드 재사용성 증진
-* 협업 툴 Notion을 통한 산출물 관리
+* <a href="https://rlatmddnjs0103.tistory.com/219">협업 툴 Notion을 통한 산출물 관리</a>
 
 
  
