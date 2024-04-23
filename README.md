@@ -72,18 +72,35 @@
 
 
  
-## <a name="section3" />기획 주제 선정 (20240215~202403) [🔝](#section0)
+## <a name="section3" />📱기획 주제 선정 (20240215~202403) [🔝](#section0)
 
-**프로젝트 주제**: 유저 개인의 성향을 파악해 추천을 해주는 의류 쇼핑몰, 쇼핑몰 관리자 웹 페이지
-
-**팀명**: Idle
-
+### 프로젝트 주제: 유저 개인의 성향을 파악해 추천을 해주는 의류 쇼핑몰, 쇼핑몰 관리자 웹 페이지 
 **서비스**: 의류 쇼핑몰 서비스, 장바구니, 좋아요, 결제 등의 필수 기능부터,
 개인의 활동 기록 데이터를 기반으로 컨텐츠 기반 AI 분석을 통한 개인 맞춤 의류 추천 제공
 쇼핑몰 관리자가 브랜드, 유저, 상품별 통계 데이터, 활동 기록 등을 열람하고 관리할 수 있는 관리자용 기능 제공
 
+  
+**주제 선정 이유**  
+  
+쇼핑몰
+* 팀장을 제외한 팀원 모두가 처음 경험하는 프로젝트이고 사전 지식이 부족했다.
+* 기존 6인의 팀원들의 업무를 잘 분담해 웹 개발의 Basic한 것들을 전원이 충분히 익힐 수 있으면 좋을 것 같다는 생각이 들어 확장이 쉬운 쇼핑몰을 주제로 선정했다.
+* 쇼핑몰을 주제로 하면 특히 백엔드 개발자에게 중요한 몇가지를 모두 충분히 수행해 볼 수 있을 것 같았다.
+  * 데이터베이스 테이블 작성
+  * 쿼리 작성
+  * API 설계(예외 처리, 트랜잭션 관리)
+  * 프론트, 백 간 응답, 요청 상호작용 이해 및 협업 적응
 
-## <a name="section4" />Stack & Tool [🔝](#section0)
+
+  
+ML 데이터 분석 추천 시스템, 배치 프로그램 <a href="https://github.com/Kim-soung-won/DjangoWeb"></a>
+* <a href="https://github.com/Kim-soung-won/Drink-labeling">지난 프로젝트</a>에서 처음 AI를 사용하며 파이썬 프로그램의 필요성을 느꼈고 AI를 파이썬 서버로 적용한 프로젝트를 구현해보고 싶었다.
+* AI를 이용한 서비스를 구현해 보는 것은 좋은 경험이 될 것이라고 생각했다.
+* 초기 기획은 API 서버로 구상했는데, 개발 과정에서 Python에 요구되는 작업들은 굳이 실시간 처리가 아닌 배치로 수행하고 실시간 처리는 Spring서버로 충분하다는 생각이 들었다.
+
+
+
+## <a name="section4" />⚙️Stack & Tool [🔝](#section0)
 
 ### 프론트엔드
 - JavaScript
@@ -92,14 +109,23 @@
 - Figma
 - <a href="https://github.com/tldraw/make-real">make-real(open source 생성형 AI)</a>
 
-### 백엔드
-- Spring Boot3 (실시간 API 처리)
-- Django (배치 작업 처리) <a href="https://github.com/Kim-soung-won/DjangoWeb">Git Repository</a>
-- Maven
-- Mybatis
+### 백엔드  
+##### Spring Boot3 (실시간 API 처리)
+* 선정 이유
+  * 첫 프로젝트에서 기능 구현의 핵심은 온라인에서 얻을 수 있는 Resource라고 생각했고 Spring regacy보다는 SpringBoot3에 대한 글과 자료가 많았다.
+  * 초보, 진입자일수록 프레임워크는 간편해야한다고 생각했고, 단순 로직과 웹 구현의 패턴에 익숙해지는 것이 가장 중요하다고 생각했다.  
+##### Django (배치 작업 처리) <a href="https://github.com/Kim-soung-won/DjangoWeb">Git Repository</a>
+* 선정 이유
+  * sklearn, pandas, numpy, pickle 등 데이터 처리에 유용한 라이브러리를 파이썬이 제공했다.
+  * 프로젝트 초기에는 실시간 처리를 할 것이라고 기획하여 Flask와 Django 중 더 친절한 프레임워크인 Django를 선택했다.  
+##### Mybatis
+* 선정 이유
+  * native 쿼리를 많이 작성해보는 경험이 중요할 것이라고 생각했다.
 
-### DBMS
-- MySQL8
+### DBMS  
+##### MySQL8
+* 선정 이유
+  * RDBMS의 종류는 지금 단계에서 크게 중요치 않다고 생각했다. 하지만 팀장인 내가 <a href="https://rlatmddnjs0103.tistory.com/category/MySQL">MySQL에 익숙하여</a> 선택하게 되었다.
 
 ### DevOps
 - NCP
