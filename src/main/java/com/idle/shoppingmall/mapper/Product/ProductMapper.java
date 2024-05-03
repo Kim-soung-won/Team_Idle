@@ -52,5 +52,5 @@ public interface ProductMapper {
 
     void sellCountUpdate(@Param("product_id") Long product_id, @Param("count") int count);
 
-
+    List<Product> findByCategory(String pdCategory);
 } // end interface

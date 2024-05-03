@@ -8,16 +8,13 @@
     <script src="http://code.jQuery.com/jquery-3.7.1.min.js"></script>
     <script>
         $(function() {
-            // $(요소 선택).load(url, data, 콜백함수);
             $("#side-menu").load("/Common/SideMenu");
             $("#search-container").load("/Common/Search");
             $("#TopMenu").load("/Common/TopMenu");
             $('#Footer').load("/Common/Footer");
         });
     </script>
-    <script defer src="/JS/page.js"></script>
     <script defer src="/JS/WongeunJS/new.js"></script>
-    <script defer src="/JS/WongeunJS/priceDown.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/CSS/UseOnce/Banner.css">
     <link rel="stylesheet" href="/CSS/Common/form.css">
@@ -44,6 +41,17 @@
     </main>
     <div id="Footer"></div>
 
+    <footer class="bg-black py-4 mt-8">
+        <div class="container mx-auto text-center text-pink-500">
+            <div class="flex flex-col items-center">
+                <div class="sm:w-2/3 text-center py-6">
+                    <p class="text-sm text-pink-500 font-bold">
+                        © 2024 IDLE Fashion Store
+                    </p>
+                </div>
+            </div>
+        </div>
+</footer>
 </body>
 </html>
 
