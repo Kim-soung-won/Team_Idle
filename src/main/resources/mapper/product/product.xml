@@ -93,7 +93,8 @@
 
 
     <select id="findByCategory" resultType="com.idle.shoppingmall.Entity.Product.Product">
-        select * from product where product_category like CONCAT('%', #{Product.product_category}, '%')
+        select * from product where product_category like CONCAT('%', #{product_category}, '%')
+        limit #{offset}, #{size}
     </select>
 
     <resultMap id="details" type="com.idle.shoppingmall.ResponseDTO.Manage.detailsObject">

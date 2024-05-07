@@ -83,17 +83,16 @@ public class LatestViewController {
     @PostMapping("/view/GET/commentLatest")
     public List<ProductCommentListResponse> findAllByComment(@RequestParam(defaultValue = "1") int page){
         int startPage = (page-1)*PAGESIZE; // 페이지가 0부터 시작한다면 이렇게 수정
-        System.out.println("startPage : "+startPage);
         int endPage = PAGESIZE;
-        System.out.println("endPage : "+endPage);
         List<ProductCommentListResponse> list = productService.findAllByComment(startPage, endPage); // 매개변수명 변경에 주의
-        System.out.println("list size : "+list.size());
         return list;
     }
 
-    @GetMapping("/view/GET/category")
-    public List<ProductListResponse> findByCategory(@RequestParam("category") String pd_category, @RequestParam(defaultValue = "1") int page) {
-        List<Product> productList = productService.findByCategory(pd_category);
+    @PostMapping("/view/GET/category")
+    public List<ProductListResponse> findByCategory(@RequestParam("category") String product_category, @RequestParam(defaultValue = "1") int page) {
+        int startPage = (page-1)*PAGESIZE;
+        int endPage = PAGESIZE;
+        List<Product> productList = productService.findByCategory(product_category, startPage, endPage);
         List<ProductListResponse> responseList = productList.stream()
                 .map(product -> new ProductListResponse(product.getProduct_id(), product.getProduct_name(),
                         product.getProduct_price(), product.getCount_love(), product.getProduct_img()))
