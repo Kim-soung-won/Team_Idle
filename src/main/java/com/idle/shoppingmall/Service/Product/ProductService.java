@@ -93,7 +93,7 @@ public class ProductService {
         return productMapper.findViewById(product_id);
     }
 
-    public List<Product> findByCategory(String pdCategory) {
-        return productMapper.findByCategory(pdCategory);
+    public List<Product> findByCategory(String product_category, int startPage, int endPage) {
+        return productMapper.findByCategory(product_category, startPage, endPage);
     }
 } // end class

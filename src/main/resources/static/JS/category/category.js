@@ -35,7 +35,7 @@ function GetListRequestCategory(url){
         'Content-Type': 'application/json',
     };
     fetch(url, {
-        method: 'GET',
+        method: 'POST',
         headers: headers
     })
         .then(response => response.json())

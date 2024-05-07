@@ -46,11 +46,9 @@ public interface ProductMapper {
 
     List<ProductCommentListResponse> findAllByComment(@Param("offset") int offset, @Param("size") int size);
 
-    List<Product> findByCategory(@Param("Product") String productDTO, @Param("offset") int offset, @Param("size") int size);
+    List<Product> findByCategory(@Param("product_category") String product_category, @Param("offset") int offset, @Param("size") int size);
 
     ProductDetailViewDTO findViewById(@Param("product_id") Long product_id);
 
     void sellCountUpdate(@Param("product_id") Long product_id, @Param("count") int count);
-
-    List<Product> findByCategory(String pdCategory);
 } // end interface
