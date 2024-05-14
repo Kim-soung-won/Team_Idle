@@ -15,16 +15,16 @@ public class LoginService {
     private final UserAccountMapper userAccountMapper;
     private final UserInfoMapper userInfoMapper;
 
-    @Transactional
-    public void setSession(String email, HttpSession session){
-        UserAccount account = userAccountMapper.getUserByEmail(email);
-        Long id = account.getUser_id();
-        UserInfo user = userInfoMapper.getUserInfoById(id);
-        if(user==null){
-            return;
-        }
-        userAccountMapper.updateLastLogin(id);
-        session.setAttribute("user", user);
-        session.setMaxInactiveInterval(60*60*24*30);
-    }
+//    @Transactional
+//    public void setSession(String email, HttpSession session){
+//        UserAccount account = userAccountMapper.getUserByEmail(email);
+//        Long id = account.getUser_id();
+//        UserInfo user = userInfoMapper.getUserInfoById(id);
+//        if(user==null){
+//            return;
+//        }
+//        userAccountMapper.updateLastLogin(id);
+//        session.setAttribute("user", user);
+//        session.setMaxInactiveInterval(60*60*24*30);
+//    }
 }

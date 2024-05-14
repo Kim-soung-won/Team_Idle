@@ -1,7 +1,6 @@
 package com.idle.shoppingmall.Config.Mail;
 
 import com.idle.shoppingmall.Config.Storage.NaverConfiguration;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;

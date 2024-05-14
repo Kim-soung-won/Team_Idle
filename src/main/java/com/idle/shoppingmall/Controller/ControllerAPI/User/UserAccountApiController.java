@@ -1,5 +1,6 @@
 package com.idle.shoppingmall.Controller.ControllerAPI.User;
 
+import com.idle.shoppingmall.Entity.User.CustomUserDetails;
 import com.idle.shoppingmall.Entity.User.UserAccount;
 import com.idle.shoppingmall.Entity.User.UserInfo;
 import com.idle.shoppingmall.RequestDTO.User.UserAccountAddRequest;
@@ -16,6 +17,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -69,17 +71,17 @@ public class UserAccountApiController {
     // 사용자 계정 업데이트
     @PostMapping("api/updateUserAccount")
     public ResponseEntity<UserAccountUpdateResponse> updateUserAccount(
-                                                                       @RequestBody @Valid UserAccountUpdateRequest request,
-                        HttpSession session) {
+            @RequestBody @Valid UserAccountUpdateRequest request,
+            Authentication authentication){
 
-        UserInfo user = (UserInfo) session.getAttribute("user");
+        CustomUserDetails user = (CustomUserDetails) authentication.getPrincipal();
         if (user == null) {
             return ResponseEntity.ok(new UserAccountUpdateResponse(700, "로그인이 필요합니다.", null));
         }
 
         boolean id = userAccountService.updateUserAccount
                 (UserAccount.builder()
-                        .user_id(user.getUser_id())
+                        .user_id(user.getId())
                         .user_email(request.getUser_email())
                         .user_password(passwordEncoder.encode(request.getUser_password()))
                         .user_pnum(request.getUser_pnum())
@@ -90,7 +92,7 @@ public class UserAccountApiController {
             return ResponseEntity.ok().body(new UserAccountUpdateResponse(400,"실패",null));
         }
 
-        return ResponseEntity.ok().body(new UserAccountUpdateResponse(200,"성공",user.getUser_id()));
+        return ResponseEntity.ok().body(new UserAccountUpdateResponse(200,"성공",user.getId()));
     }
 
     /*@GetMapping("/api/GET/deleteUserAccount")
