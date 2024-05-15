@@ -1,5 +1,6 @@
 package com.idle.shoppingmall.Service.User;
 
+import com.idle.shoppingmall.Config.Security.PrincipalDetail;
 import com.idle.shoppingmall.Entity.User.CustomUserDetails;
 import com.idle.shoppingmall.Entity.User.UserAccount;
 import com.idle.shoppingmall.Entity.User.UserInfo;
@@ -24,12 +25,6 @@ public class UserDetailService implements UserDetailsService {
         UserInfo userInfo = userInfoMapper.getUserInfoById(user.getUser_id());
         System.out.println("user = " + user.getUser_role().toString());
         //User = Security에서 제공해주는 객체
-        return CustomUserDetails.builder()
-                .username(user.getUser_email())
-                .password(user.getUser_password())
-                .id(user.getUser_id())
-                .roles(user.getUser_role().toString())
-                .name(userInfo.getName())
-                .build();
+        return new PrincipalDetail(user, userInfo.getName());
     }
 }

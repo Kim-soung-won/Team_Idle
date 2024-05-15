@@ -1,5 +1,6 @@
 package com.idle.shoppingmall.Controller.ControllerAPI;
 
+import com.idle.shoppingmall.Config.Security.PrincipalDetail;
 import com.idle.shoppingmall.Controller.ControllerView.ProductViews.DTO.PaymentListDTOtoSession;
 import com.idle.shoppingmall.Controller.ControllerView.ProductViews.DTO.RequestPayDTO;
 import com.idle.shoppingmall.Entity.User.CustomUserDetails;
@@ -42,7 +43,7 @@ public class PaymentApiController {
 
     @PostMapping("/api/POST/checkPayment")
     public ResponseEntity<CommonResponse> checkPay(Authentication authentication, HttpSession session){
-        CustomUserDetails user = (CustomUserDetails) authentication.getPrincipal();
+        PrincipalDetail user = (PrincipalDetail) authentication.getPrincipal();
         if(user == null) return ResponseEntity.ok().body(new CommonResponse(666, "세션이 만료되었어요."));
         List<PaymentListDTOtoSession> paymentList = (List<PaymentListDTOtoSession>) session.getAttribute("paymentList");
         if(paymentList == null) return ResponseEntity.ok().body(new CommonResponse(400, "아무것도 안고르지 않았나요?"));
@@ -54,10 +55,10 @@ public class PaymentApiController {
     @PostMapping("/api/POST/payment")
     public ResponseEntity<CommonResponse> payment(@RequestBody RequestPayDTO request, HttpSession session, Authentication authentication) {
         System.out.println("result : "+request.getAddress() + " " + request.getPhone());
-        CustomUserDetails user = (CustomUserDetails) authentication.getPrincipal();
+        PrincipalDetail user = (PrincipalDetail) authentication.getPrincipal();
         List<PaymentListDTOtoSession> paymentList = (List<PaymentListDTOtoSession>) session.getAttribute("paymentList");
 
-        CommonResponse response = paymentService.payAndDelivery(request, user.getId(), paymentList); ;
+        CommonResponse response = paymentService.payAndDelivery(request, user.getUser().getUser_id(), paymentList); ;
         session.removeAttribute("paymentList");
 
         return ResponseEntity.ok().body(response);

@@ -1,5 +1,6 @@
 package com.idle.shoppingmall.Controller.ControllerView.ProductViews;
 
+import com.idle.shoppingmall.Config.Security.PrincipalDetail;
 import com.idle.shoppingmall.Entity.User.CustomUserDetails;
 import com.idle.shoppingmall.Entity.User.UserInfo;
 import com.idle.shoppingmall.ResponseDTO.Order.OrderListViewResponse;
@@ -27,11 +28,11 @@ public class OrderListViewController {
     //유저가 자신의 주문내역을 조회
     @PostMapping("/api/view/orderList")
     public ResponseEntity<List<OrderListViewResponse>> getOrderList(@RequestParam(defaultValue = "1") int page, Authentication authentication){
-        CustomUserDetails user = (CustomUserDetails) authentication.getPrincipal();
+        PrincipalDetail user = (PrincipalDetail) authentication.getPrincipal();
         if(user == null) return null;
         int startPage = (page - 1) * PAGESIZE;
         int endPage = PAGESIZE;
-        List<OrderListViewResponse> responses = paymentService.UserOrderListView(user.getId(), startPage, endPage);
+        List<OrderListViewResponse> responses = paymentService.UserOrderListView(user.getUser().getUser_id(), startPage, endPage);
         log.info("응답 리스트 사이즈 : ", responses.size());
         return ResponseEntity.ok().body(responses);
     }
