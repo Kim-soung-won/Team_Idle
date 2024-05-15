@@ -157,8 +157,6 @@ ML 데이터 분석 추천 시스템, 배치 프로그램 <a href="https://githu
 
 ### DBMS  
 ##### MySQL8
-* 선정 이유
-  * RDBMS의 종류는 지금 단계에서 크게 중요치 않다고 생각했다. 하지만 팀장인 내가 <a href="https://rlatmddnjs0103.tistory.com/category/MySQL">MySQL에 익숙하여</a> 선택하게 되었다.
 
 ### DevOps
 - NCP
