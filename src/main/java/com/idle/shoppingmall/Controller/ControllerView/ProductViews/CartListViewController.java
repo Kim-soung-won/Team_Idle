@@ -1,5 +1,6 @@
 package com.idle.shoppingmall.Controller.ControllerView.ProductViews;
 
+import com.idle.shoppingmall.Config.Security.PrincipalDetail;
 import com.idle.shoppingmall.Entity.User.CustomUserDetails;
 import com.idle.shoppingmall.ResponseDTO.Cart.CartListResponse;
 import com.idle.shoppingmall.Entity.User.UserInfo;
@@ -20,7 +21,7 @@ public class CartListViewController {
 
     @PostMapping("/api/view/cartList")
     public ResponseEntity<List<CartListResponse>> getCartList(Authentication authentication){
-        CustomUserDetails user = (CustomUserDetails) authentication.getPrincipal();
-        return user == null ? ResponseEntity.ok().body(null) : ResponseEntity.ok().body(cartService.findByCartList(user.getId()));
+        PrincipalDetail user = (PrincipalDetail) authentication.getPrincipal();
+        return user == null ? ResponseEntity.ok().body(null) : ResponseEntity.ok().body(cartService.findByCartList(user.getUser().getUser_id()));
     }
 }

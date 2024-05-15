@@ -9,8 +9,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.core.GrantedAuthority;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
@@ -23,11 +27,14 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write("{\"success\": true}");
-        CustomUserDetails user = (CustomUserDetails) authentication.getPrincipal();
+        System.out.println("Just Principal : "+ authentication.getPrincipal().getClass());
         System.out.println("authentication.getAuthorities() "+authentication.getAuthorities());
-        String email = authentication.getName();
 //        loginService.setSession(email, request.getSession());
-        if(authentication.getAuthorities().toString().equals("[ROLE_MANAGER]")) response.sendRedirect("/manage");
+        System.out.println("role :: :: "+authentication.getAuthorities().toString());
+        List<String> authorities = authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)  // GrantedAuthority 객체에서 권한 문자열을 추출
+                .toList();  // List<String> 형태로 변환
+        if(authorities.contains("ROLE_MANAGER")) response.sendRedirect("/manage");
         else response.sendRedirect("/main");
     }
 }
