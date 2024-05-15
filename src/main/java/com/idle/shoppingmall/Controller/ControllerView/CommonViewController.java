@@ -1,7 +1,10 @@
 package com.idle.shoppingmall.Controller.ControllerView;
 
+import com.idle.shoppingmall.Config.Security.PrincipalDetail;
+import com.idle.shoppingmall.Entity.User.CustomUserDetails;
 import com.idle.shoppingmall.Entity.User.UserInfo;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -67,8 +70,7 @@ public class CommonViewController {
     } // login
 
     @GetMapping("/join")
-    String join(HttpSession session) {
-        System.out.println("user : "+session.getAttribute("user"));
+    String join() {
         return "/FE/join";
     } // join
 
@@ -88,8 +90,8 @@ public class CommonViewController {
     } // sale
 
     @GetMapping("/cs")
-    String CS(@RequestParam Long id, Model model, HttpSession session) {
-        UserInfo user = (UserInfo) session.getAttribute("user");
+    String CS(@RequestParam Long id, Model model, Authentication authentication) {
+        PrincipalDetail user = (PrincipalDetail) authentication.getPrincipal();
         if(user == null) { return "/login"; }
         model.addAttribute("user_name", user.getName());
         model.addAttribute("payment_id", id);

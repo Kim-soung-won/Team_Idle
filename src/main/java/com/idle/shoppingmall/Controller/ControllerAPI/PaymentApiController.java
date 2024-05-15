@@ -1,7 +1,9 @@
 package com.idle.shoppingmall.Controller.ControllerAPI;
 
+import com.idle.shoppingmall.Config.Security.PrincipalDetail;
 import com.idle.shoppingmall.Controller.ControllerView.ProductViews.DTO.PaymentListDTOtoSession;
 import com.idle.shoppingmall.Controller.ControllerView.ProductViews.DTO.RequestPayDTO;
+import com.idle.shoppingmall.Entity.User.CustomUserDetails;
 import com.idle.shoppingmall.Entity.User.UserInfo;
 import com.idle.shoppingmall.Entity.User.UserLog;
 import com.idle.shoppingmall.ResponseDTO.Common.CommonResponse;
@@ -12,6 +14,7 @@ import com.idle.shoppingmall.Service.User.UserLogService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,9 +42,8 @@ public class PaymentApiController {
     }
 
     @PostMapping("/api/POST/checkPayment")
-    public ResponseEntity<CommonResponse> checkPay(HttpSession session){
-        System.out.println("!111111111111111111111111");
-        UserInfo user = (UserInfo) session.getAttribute("user");
+    public ResponseEntity<CommonResponse> checkPay(Authentication authentication, HttpSession session){
+        PrincipalDetail user = (PrincipalDetail) authentication.getPrincipal();
         if(user == null) return ResponseEntity.ok().body(new CommonResponse(666, "세션이 만료되었어요."));
         List<PaymentListDTOtoSession> paymentList = (List<PaymentListDTOtoSession>) session.getAttribute("paymentList");
         if(paymentList == null) return ResponseEntity.ok().body(new CommonResponse(400, "아무것도 안고르지 않았나요?"));
@@ -51,12 +53,12 @@ public class PaymentApiController {
 
 
     @PostMapping("/api/POST/payment")
-    public ResponseEntity<CommonResponse> payment(@RequestBody RequestPayDTO request, HttpSession session) {
+    public ResponseEntity<CommonResponse> payment(@RequestBody RequestPayDTO request, HttpSession session, Authentication authentication) {
         System.out.println("result : "+request.getAddress() + " " + request.getPhone());
-        UserInfo user = (UserInfo) session.getAttribute("user");
+        PrincipalDetail user = (PrincipalDetail) authentication.getPrincipal();
         List<PaymentListDTOtoSession> paymentList = (List<PaymentListDTOtoSession>) session.getAttribute("paymentList");
 
-        CommonResponse response = paymentService.payAndDelivery(request, user.getUser_id(), paymentList); ;
+        CommonResponse response = paymentService.payAndDelivery(request, user.getUser().getUser_id(), paymentList); ;
         session.removeAttribute("paymentList");
 
         return ResponseEntity.ok().body(response);

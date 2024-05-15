@@ -13,7 +13,7 @@ public class CustomLogoutHandler implements LogoutHandler {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        HttpSession session = request.getSession();
-        session.removeAttribute("user");
+//        HttpSession session = request.getSession();
+//        session.removeAttribute("user");
     }
 }

@@ -1,9 +1,11 @@
 package com.idle.shoppingmall.Controller.ControllerAPI;
 
 
+import com.idle.shoppingmall.Config.Security.PrincipalDetail;
 import com.idle.shoppingmall.Entity.Cart;
 import com.idle.shoppingmall.Entity.Key.CartKey;
 import com.idle.shoppingmall.Entity.Product.ProductDetail;
+import com.idle.shoppingmall.Entity.User.CustomUserDetails;
 import com.idle.shoppingmall.Entity.User.UserInfo;
 import com.idle.shoppingmall.RequestDTO.Cart.CartAddRequest;
 import com.idle.shoppingmall.RequestDTO.Cart.CartDeleteRequest;
@@ -16,6 +18,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,8 +32,8 @@ public class CartApiController {
 
     @PostMapping("/api/POST/addCart")
     public ResponseEntity<CartAddResponse> addCart(@RequestBody @Valid CartAddRequest request,
-                                                   HttpSession session){
-        UserInfo user = (UserInfo) session.getAttribute("user");
+                                                   Authentication authentication) {
+        PrincipalDetail user = (PrincipalDetail) authentication.getPrincipal();
         if(user==null){
             return ResponseEntity.ok().body(new CartAddResponse(666, "로그인이 필요합니다.", null));
         }
@@ -38,11 +41,11 @@ public class CartApiController {
         if(productDetail == null){
             return ResponseEntity.ok().body(new CartAddResponse(400, "상품이 없습니다.", request.getProduct_id()));
         }
-        CartKey key = new CartKey(user.getUser_id(), request.getProduct_id(), request.getSize());
+        CartKey key = new CartKey(user.getUser().getUser_id(), request.getProduct_id(), request.getSize());
         Cart cart = cartService.findCart(key);
         if(cart == null){
             cartService.addCart(Cart.builder()
-                    .created_who(user.getUser_id())
+                    .created_who(user.getUser().getUser_id())
                     .product_id(request.getProduct_id())
                     .size(request.getSize())
                     .count(request.getCount())
@@ -57,15 +60,15 @@ public class CartApiController {
 
     @PostMapping("/api/DELETE/Cart")
     public ResponseEntity<CartDeleteResponse> delCart(@RequestParam Long id, @RequestParam String size,
-                                                      HttpSession session) {
+                                                      Authentication authentication){
 
-        UserInfo user = (UserInfo) session.getAttribute("user");
+        PrincipalDetail user = (PrincipalDetail) authentication.getPrincipal();
 
         if(user==null){
             return ResponseEntity.ok().body(new CartDeleteResponse(700, "로그인이 필요합니다.", null));
         } // if
 
-        CartKey key = new CartKey(user.getUser_id(), id, size);
+        CartKey key = new CartKey(user.getUser().getUser_id(), id, size);
         Cart cart = cartService.findCart(key);
 
         if(cart == null) {

@@ -1,6 +1,8 @@
 package com.idle.shoppingmall.Controller.ControllerAPI.Manage;
 
+import com.idle.shoppingmall.Config.Security.PrincipalDetail;
 import com.idle.shoppingmall.Controller.ControllerAPI.Manage.Storage.UploadImages;
+import com.idle.shoppingmall.Entity.User.CustomUserDetails;
 import com.idle.shoppingmall.Entity.User.UserInfo;
 import com.idle.shoppingmall.RequestDTO.Product.Add.ProductAddRequest;
 import com.idle.shoppingmall.ResponseDTO.Common.CommonResponse;
@@ -9,6 +11,7 @@ import com.idle.shoppingmall.Service.User.UserInfoService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,16 +23,15 @@ public class ProductAddController {
 
     @PostMapping("/api/POST/manage/productAdd")
     public ResponseEntity<CommonResponse> productAdd(@ModelAttribute ProductAddRequest request,
-                                                     HttpSession session){
+                                                     Authentication authentication){
 
         System.out.println(request.getProduct_name());
         System.out.println(request.getSizes().get(1).getSize());
-        UserInfo user = (UserInfo) session.getAttribute("user");
-        user = userInfoService.getUserInfoById(11L);
+        PrincipalDetail user = (PrincipalDetail) authentication.getPrincipal();
         if(user==null){
             return ResponseEntity.ok().body(new CommonResponse(666,"로그인이 필요합니다."));
         }
-        Long id = productAddService.addProduct(request, user.getUser_id());
+        Long id = productAddService.addProduct(request, user.getUser().getUser_id());
         if(request.getImages()!=null) {
             uploadImages.productUploadImages(request.getImages(), id);
         }

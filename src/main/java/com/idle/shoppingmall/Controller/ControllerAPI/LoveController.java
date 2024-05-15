@@ -1,9 +1,11 @@
 package com.idle.shoppingmall.Controller.ControllerAPI;
 
 
+import com.idle.shoppingmall.Config.Security.PrincipalDetail;
 import com.idle.shoppingmall.Entity.Key.LoveKey;
 import com.idle.shoppingmall.Entity.Love;
 import com.idle.shoppingmall.Entity.Product.Product;
+import com.idle.shoppingmall.Entity.User.CustomUserDetails;
 import com.idle.shoppingmall.Entity.User.UserInfo;
 import com.idle.shoppingmall.Entity.User.UserLog;
 import com.idle.shoppingmall.RequestDTO.Love.LoveAddRequest;
@@ -15,6 +17,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,8 +34,8 @@ public class LoveController {
 
     @PostMapping("/api/POST/addLove")
     public ResponseEntity<CommonResponse> AddLove(@RequestBody @Valid LoveAddRequest request,
-                                                  HttpSession session) {
-        UserInfo user = (UserInfo) session.getAttribute("user");
+                                                  Authentication authentication){
+        PrincipalDetail user = (PrincipalDetail) authentication.getPrincipal();
 
         if (user == null) {
             return ResponseEntity.ok().body(new CommonResponse(666,"좋아요는 로그인이 필요합니다."));
@@ -43,18 +46,18 @@ public class LoveController {
             return ResponseEntity.ok().body(new CommonResponse(500,"존재하지 않는 상품입니다."));
         }
 
-        LoveKey loveKey = new LoveKey(request.getProduct_id(), user.getUser_id());
+        LoveKey loveKey = new LoveKey(request.getProduct_id(), user.getUser().getUser_id());
         Love love = loveService.findLove(loveKey);
 
         if (love == null) {
             // 좋아요 추가 로직
             loveService.addLove(Love.builder()
                     .product_id(request.getProduct_id())
-                    .created_who(user.getUser_id())
+                    .created_who(user.getUser().getUser_id())
                     .created_at(LocalDateTime.now())
                     .build());
             userLogService.insertUserLog(UserLog.builder()
-                    .created_who(user.getUser_id())
+                    .created_who(user.getUser().getUser_id())
                     .name(user.getName())
                     .created_at(LocalDateTime.now())
                     .doit("LOVE")
