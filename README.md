@@ -40,8 +40,6 @@
 
 **팀장** 
 * <a href="https://rlatmddnjs0103.tistory.com/218">데이터베이스 테이블 설계, UML 작성</a>
-* <a href="https://rlatmddnjs0103.tistory.com/134">팀원 데이터 베이스 기초 교육</a>
-* <a href="https://rlatmddnjs0103.tistory.com/217">API 통신 설계 및 원리 기초 교육</a>
 * 개발 업무 분담
 * 기술 스택 선택
 * 팀원 코드 리뷰
