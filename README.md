@@ -30,7 +30,7 @@
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/Ryuwongeun"><b>원근</b></a></td>
-    <td align="center"><a href="https://github.com/gywls20"><b>수연</b></a></td>
+    <td align="center"><a href="https://github.com/SOOYEON21428"><b>수연</b></a></td>
     <td align="center"><a href="https://github.com/dl11911"><b>승훈</b></a></td>
     <td align="center"><a href="https://github.com/Kim-soung-won"><b>승원</b></a></td>
   </tr>
