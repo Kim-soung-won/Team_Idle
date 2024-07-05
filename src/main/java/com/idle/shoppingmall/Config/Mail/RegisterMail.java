@@ -1,17 +1,12 @@
 package com.idle.shoppingmall.Config.Mail;
 
 import jakarta.mail.MessagingException;
-import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 
-import javax.naming.Context;
 import java.io.UnsupportedEncodingException;
 import java.util.Random;
 
@@ -101,10 +96,7 @@ public class RegisterMail {
         return authNum; //인증 코드 반환
     }
 
-    //타임리프를 이용한 context 설정
     public String setContext(String code) {
-//        Model model = null;
-//        model.addAttribute("code", code);
         return code;
     }
 

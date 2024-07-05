@@ -1,5 +1,6 @@
 package com.idle.shoppingmall.Config.OAuth2;
 
+import com.idle.shoppingmall.Entity.User.CustomUserDetails;
 import com.idle.shoppingmall.Entity.User.UserAccount;
 import com.idle.shoppingmall.Entity.User.UserInfo;
 import com.idle.shoppingmall.Service.LoginService;
@@ -28,10 +29,11 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         System.out.println(account);
         System.out.println("id : "+ account.getUser_email());
         UserInfo info = userInfoMapper.getUserInfoById(account.getUser_id());
+        System.out.println(user.getName());
         if(info == null){
             userInfoMapper.addUser_Info(new UserInfo(account.getUser_id(), user.getAttribute("sub").toString()));
         }
-        loginService.setSession(email, request.getSession());
+//        loginService.setSession(email, request.getSession());
         response.sendRedirect("/main");
         System.out.println("user = " + user.getAttributes());
     }

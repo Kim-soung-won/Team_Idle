@@ -40,3 +40,5 @@ build/
 /target/test-classes
 /target
 
+/src/main/resources/application.properties
+/src/main/resources/naver.properties
