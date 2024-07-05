@@ -24,14 +24,6 @@ public class ProductAddController {
     @PostMapping("/api/POST/manage/productAdd")
     public ResponseEntity<CommonResponse> productAdd(@ModelAttribute ProductAddRequest request,
                                                      Authentication authentication){
-        System.out.println("1: "+request.getProduct_name());
-        System.out.println("2: "+request.getProduct_price());
-        System.out.println("3: "+request.getProduct_category());
-        System.out.println("4: "+authentication.getName());
-        System.out.println("5: "+request.getBrand());
-        System.out.println("6: "+request.getSizes().size());
-        System.out.println("7: "+request.getImages().size());
-
         PrincipalDetail user = (PrincipalDetail) authentication.getPrincipal();
         if(user==null){
             return ResponseEntity.ok().body(new CommonResponse(666,"로그인이 필요합니다."));
