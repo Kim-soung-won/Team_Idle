@@ -21,6 +21,7 @@ public class ProductAddRequest {
     private String product_category;
     private List<SizeAndCount> sizes;
     private MultipartFile thumbnail;
+
     private List<MultipartFile> images;
 }
 

@@ -2,7 +2,8 @@ const AddBtn = document.getElementById('AddBtn');
 
 AddBtn.addEventListener('click', () => {
     let name = document.getElementById('product_name').value;
-    const brand = document.getElementById('brandId').value;
+    let brand = document.getElementById('brandId').value;
+    brand = 1;
     const category = document.getElementById('product_category').value;
     let price = document.getElementById('product_price').value;
     const sizeElements = document.querySelectorAll('.pd_size');
@@ -16,7 +17,6 @@ AddBtn.addEventListener('click', () => {
     formData.append('brand', brand);
     formData.append('product_category', category);
     formData.append('product_price', price);
-
     if(images.files.length > 0) {
         for (let i = 0; i < images.files.length; i++) {
             formData.append('images', images.files[i]);
