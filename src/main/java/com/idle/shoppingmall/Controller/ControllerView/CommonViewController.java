@@ -1,5 +1,6 @@
 package com.idle.shoppingmall.Controller.ControllerView;
 
+import com.idle.shoppingmall.Config.Security.PrincipalDetail;
 import com.idle.shoppingmall.Entity.User.CustomUserDetails;
 import com.idle.shoppingmall.Entity.User.UserInfo;
 import jakarta.servlet.http.HttpSession;
@@ -90,7 +91,7 @@ public class CommonViewController {
 
     @GetMapping("/cs")
     String CS(@RequestParam Long id, Model model, Authentication authentication) {
-        CustomUserDetails user = (CustomUserDetails) authentication.getPrincipal();
+        PrincipalDetail user = (PrincipalDetail) authentication.getPrincipal();
         if(user == null) { return "/login"; }
         model.addAttribute("user_name", user.getName());
         model.addAttribute("payment_id", id);

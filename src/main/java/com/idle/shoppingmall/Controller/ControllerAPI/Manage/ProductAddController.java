@@ -1,5 +1,6 @@
 package com.idle.shoppingmall.Controller.ControllerAPI.Manage;
 
+import com.idle.shoppingmall.Config.Security.PrincipalDetail;
 import com.idle.shoppingmall.Controller.ControllerAPI.Manage.Storage.UploadImages;
 import com.idle.shoppingmall.Entity.User.CustomUserDetails;
 import com.idle.shoppingmall.Entity.User.UserInfo;
@@ -26,11 +27,11 @@ public class ProductAddController {
 
         System.out.println(request.getProduct_name());
         System.out.println(request.getSizes().get(1).getSize());
-        CustomUserDetails user = (CustomUserDetails) authentication.getPrincipal();
+        PrincipalDetail user = (PrincipalDetail) authentication.getPrincipal();
         if(user==null){
             return ResponseEntity.ok().body(new CommonResponse(666,"로그인이 필요합니다."));
         }
-        Long id = productAddService.addProduct(request, user.getId());
+        Long id = productAddService.addProduct(request, user.getUser().getUser_id());
         if(request.getImages()!=null) {
             uploadImages.productUploadImages(request.getImages(), id);
         }

@@ -1,6 +1,7 @@
 package com.idle.shoppingmall.Controller.ControllerAPI.Manage;
 
 import com.idle.shoppingmall.Config.Mail.RegisterMail;
+import com.idle.shoppingmall.Config.Security.PrincipalDetail;
 import com.idle.shoppingmall.Entity.User.CustomUserDetails;
 import com.idle.shoppingmall.Entity.User.UserInfo;
 import com.idle.shoppingmall.RequestDTO.CustomerService.CSAnswerRequest;
@@ -25,9 +26,9 @@ public class MCSController {
 
     @PostMapping("/manage/POST/cs")
     public ResponseEntity<CommonResponse> getCSList(@RequestBody CSAnswerRequest request, Authentication authentication) throws MessagingException, UnsupportedEncodingException {
-        CustomUserDetails user = (CustomUserDetails) authentication.getPrincipal();
+        PrincipalDetail user = (PrincipalDetail) authentication.getPrincipal();
         if(user == null) return ResponseEntity.ok().body(new CommonResponse(666, "로그인이 필요합니다."));
-        CommonResponse response = customerService.answerCS(request, user.getId()) == null
+        CommonResponse response = customerService.answerCS(request, user.getUser().getUser_id()) == null
                 ? new CommonResponse(400, "답변 등록에 실패했습니다.")
                 : new CommonResponse(200, "답변 등록에 성공했습니다.");
         String email = customerService.sendMail(request.getCs_id());

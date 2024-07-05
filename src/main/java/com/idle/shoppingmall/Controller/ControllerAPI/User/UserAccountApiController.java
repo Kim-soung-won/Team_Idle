@@ -1,5 +1,6 @@
 package com.idle.shoppingmall.Controller.ControllerAPI.User;
 
+import com.idle.shoppingmall.Config.Security.PrincipalDetail;
 import com.idle.shoppingmall.Entity.User.CustomUserDetails;
 import com.idle.shoppingmall.Entity.User.UserAccount;
 import com.idle.shoppingmall.Entity.User.UserInfo;
@@ -74,14 +75,14 @@ public class UserAccountApiController {
             @RequestBody @Valid UserAccountUpdateRequest request,
             Authentication authentication){
 
-        CustomUserDetails user = (CustomUserDetails) authentication.getPrincipal();
+        PrincipalDetail user = (PrincipalDetail) authentication.getPrincipal();
         if (user == null) {
             return ResponseEntity.ok(new UserAccountUpdateResponse(700, "로그인이 필요합니다.", null));
         }
 
         boolean id = userAccountService.updateUserAccount
                 (UserAccount.builder()
-                        .user_id(user.getId())
+                        .user_id(user.getUser().getUser_id())
                         .user_email(request.getUser_email())
                         .user_password(passwordEncoder.encode(request.getUser_password()))
                         .user_pnum(request.getUser_pnum())
@@ -92,7 +93,7 @@ public class UserAccountApiController {
             return ResponseEntity.ok().body(new UserAccountUpdateResponse(400,"실패",null));
         }
 
-        return ResponseEntity.ok().body(new UserAccountUpdateResponse(200,"성공",user.getId()));
+        return ResponseEntity.ok().body(new UserAccountUpdateResponse(200,"성공",user.getUser().getUser_id()));
     }
 
     /*@GetMapping("/api/GET/deleteUserAccount")

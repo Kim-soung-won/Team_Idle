@@ -1,5 +1,6 @@
 package com.idle.shoppingmall.Controller.ControllerAPI;
 
+import com.idle.shoppingmall.Config.Security.PrincipalDetail;
 import com.idle.shoppingmall.Controller.ControllerAPI.Manage.Storage.UploadImages;
 import com.idle.shoppingmall.Entity.Comment;
 import com.idle.shoppingmall.Entity.User.CustomUserDetails;
@@ -29,7 +30,7 @@ public class CommentApiController {
 
     @PostMapping("/api/DELETE/comment")
     public ResponseEntity<CommonResponse> deleteComment(@RequestBody CommentDeleteRequest request, Authentication authentication){
-        CustomUserDetails user = (CustomUserDetails) authentication.getPrincipal();
+        PrincipalDetail user = (PrincipalDetail) authentication.getPrincipal();
         if(user == null) return ResponseEntity.ok().body(new CommonResponse(666, "로그인이 필요합니다."));
         System.out.println("request : "+request.getCreated_who());
         System.out.println("ID : "+request.getComment_id());
@@ -42,10 +43,10 @@ public class CommentApiController {
 
     @PostMapping("/api/POST/comment")
     public ResponseEntity<CommonResponse> saveComment(@ModelAttribute @Valid CommentAddRequest request, Authentication authentication){
-        CustomUserDetails user = (CustomUserDetails) authentication.getPrincipal();
+        PrincipalDetail user = (PrincipalDetail) authentication.getPrincipal();
         if(user == null) return ResponseEntity.ok().body(new CommonResponse(666, "로그인이 필요합니다."));
         if(request.getContent().length()==0) return ResponseEntity.ok().body(new CommonResponse(400, "댓글의 내용을 입력해주세요."));
-        Long id = commentService.addComment(request, user.getId(), user.getName());
+        Long id = commentService.addComment(request, user.getUser().getUser_id(), user.getName());
         uploadImg.commentUploadImages(request.getImages(), id);
         return ResponseEntity.ok().body(new CommonResponse(200, "댓글이 등록되었습니다."));
     }
