@@ -1,5 +1,6 @@
 package com.idle.shoppingmall.Service.Product;
 
+import com.idle.shoppingmall.Config.SingleTon.SingleTon;
 import com.idle.shoppingmall.Entity.Product.Product;
 import com.idle.shoppingmall.Entity.Product.ProductDetail;
 import com.idle.shoppingmall.RequestDTO.Product.Add.ProductAddRequest;
@@ -19,13 +20,12 @@ public class ProductAddService {
     private final ProductDetailMapper productDetailMapper;
     private final NCPObjectStorageService ncpObjectStorageService;
 
-    private final String BUCKETNAME = "miniidle";
 
 
     @Transactional
     public Long addProduct(ProductAddRequest request, Long id){
         String imageFileName = request.getThumbnail() == null ? null :
-                ncpObjectStorageService.uploadFile(BUCKETNAME, "storage/", request.getThumbnail());
+                ncpObjectStorageService.uploadFile(SingleTon.S3_BUCKET_NAME, "storage/", request.getThumbnail());
         Product product = Product.builder()
                 .product_name(request.getProduct_name())
                 .brand_id(request.getBrand())

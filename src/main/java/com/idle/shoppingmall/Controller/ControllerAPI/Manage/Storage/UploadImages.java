@@ -1,5 +1,6 @@
 package com.idle.shoppingmall.Controller.ControllerAPI.Manage.Storage;
 
+import com.idle.shoppingmall.Config.SingleTon.SingleTon;
 import com.idle.shoppingmall.Entity.CommentImg;
 import com.idle.shoppingmall.Entity.Product.ProductImg;
 import com.idle.shoppingmall.Service.Storage.NCPObjectStorageService;
@@ -18,8 +19,6 @@ public class UploadImages {
     private final UploadImgService uploadService;
     private final NCPObjectStorageService ncpObjectStorageService;
 
-    private final String BUCKETNAME = "miniidle";
-
     public void productUploadImages(List<MultipartFile> images, Long id){
         String imageFileName = "";
         String imageOriginalName = "";
@@ -28,7 +27,7 @@ public class UploadImages {
 
         for(MultipartFile img : images){
             imageOriginalName = img.getOriginalFilename();
-            imageFileName = ncpObjectStorageService.uploadFile(BUCKETNAME, "storage/", img);
+            imageFileName = ncpObjectStorageService.uploadFile(SingleTon.S3_BUCKET_NAME, "storage/", img);
 
             ProductImg productImg = ProductImg.builder()
                     .product_id(id)
@@ -50,7 +49,7 @@ public class UploadImages {
 
         for(MultipartFile img : images){
             imageOriginalName = img.getOriginalFilename();
-            imageFileName = ncpObjectStorageService.uploadFile(BUCKETNAME, "storage/", img);
+            imageFileName = ncpObjectStorageService.uploadFile(SingleTon.S3_BUCKET_NAME, "storage/", img);
 
             CommentImg commentImg = CommentImg.builder()
                     .comment_id(id)

@@ -24,16 +24,13 @@ public class ProductAddController {
     @PostMapping("/api/POST/manage/productAdd")
     public ResponseEntity<CommonResponse> productAdd(@ModelAttribute ProductAddRequest request,
                                                      Authentication authentication){
-
-        System.out.println(request.getProduct_name());
-        System.out.println(request.getSizes().get(1).getSize());
         PrincipalDetail user = (PrincipalDetail) authentication.getPrincipal();
         if(user==null){
             return ResponseEntity.ok().body(new CommonResponse(666,"로그인이 필요합니다."));
         }
         Long id = productAddService.addProduct(request, user.getUser().getUser_id());
         if(request.getImages()!=null) {
-            uploadImages.productUploadImages(request.getImages(), id);
+//            uploadImages.productUploadImages(request.getImages(), id);
         }
         return id == null ? ResponseEntity.ok().body(new CommonResponse(600, "상품 등록 실패")) :
                 ResponseEntity.ok().body(new CommonResponse(200, "상품 등록 성공"));

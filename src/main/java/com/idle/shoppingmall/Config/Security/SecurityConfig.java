@@ -41,6 +41,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable) //csrf 설정 disable
                 .authorizeHttpRequests((authorizeRequests) ->
                         authorizeRequests
+//                                .requestMatchers("/manage*").permitAll()
                                 .requestMatchers("/manage*").hasRole("MANAGER")
                                 .requestMatchers("/api/*").permitAll()
                                 .requestMatchers("/login").permitAll()
